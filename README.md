@@ -1,6 +1,7 @@
 # CurrencyLens
 
 [![CI](https://github.com/vornashev/currency-lens/actions/workflows/ci.yml/badge.svg)](https://github.com/vornashev/currency-lens/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/vornashev/currency-lens)](https://github.com/vornashev/currency-lens/releases/latest)
 [![Manifest V3](https://img.shields.io/badge/manifest-V3-informational)](manifests/base.json)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
@@ -23,6 +24,15 @@ Cross-browser (Chrome & Firefox Manifest V3) extension that detects prices direc
 
 ## Install
 
+### Download prebuilt archives (recommended)
+
+Grab the latest builds directly from [Releases](https://github.com/vornashev/currency-lens/releases/latest):
+
+- **Chrome / Chromium / Edge / Brave:** download [`currency-lens-chrome.zip`](https://github.com/vornashev/currency-lens/releases/latest/download/currency-lens-chrome.zip), unzip it, open `chrome://extensions`, enable **Developer mode**, click **Load unpacked**, and select the unzipped folder.
+- **Firefox:** download [`currency-lens-firefox.zip`](https://github.com/vornashev/currency-lens/releases/latest/download/currency-lens-firefox.zip), open `about:debugging#/runtime/this-firefox`, click **Load Temporary Add-on…**, and select the downloaded `.zip` file (or unzip it and select `manifest.json`).
+
+### Build from source
+
 Requires **Node.js 20+** (no `npm install` needed — zero third-party dependencies).
 
 ```sh
@@ -31,17 +41,7 @@ cd currency-lens
 npm run build
 ```
 
-This builds Manifest V3 bundles into `dist/chrome` and `dist/firefox`.
-
-### Chrome / Chromium / Edge / Brave
-
-1. Open `chrome://extensions` and enable **Developer mode**.
-2. Click **Load unpacked** and select `dist/chrome`.
-
-### Firefox
-
-1. Open `about:debugging#/runtime/this-firefox`.
-2. Click **Load Temporary Add-on…** and select `dist/firefox/manifest.json`.
+This builds Manifest V3 bundles into `dist/chrome` and `dist/firefox`. Load them using the same steps above.
 
 ## Development
 
