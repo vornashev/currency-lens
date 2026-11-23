@@ -1,0 +1,12 @@
+{
+  "permissions": [
+    "sidePanel"
+  ],
+  "side_panel": {
+    "default_path": "popup/popup.html?view=panel"
+  },
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  }
+}

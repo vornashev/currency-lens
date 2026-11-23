@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>CurrencyLens</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="app">
+      <!-- Header -->
+      <header class="header">
+        <div class="brand">
+          <div class="brand-logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+              <circle cx="14.5" cy="9.5" r="5" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1.2" stroke-opacity="0.45" />
+              <circle cx="9.5" cy="14" r="5.5" fill="currentColor" />
+              <path d="M9.5 10.4v7.2" stroke="var(--bg)" stroke-width="1.3" stroke-linecap="round" />
+              <path d="M11.3 12.2c0-.9-.8-1.3-1.8-1.3-1 0-1.7.5-1.7 1.2 0 .8.7 1.1 1.7 1.4 1 .3 1.8.6 1.8 1.4 0 .8-.8 1.3-1.8 1.3-1 0-1.8-.5-1.8-1.3" stroke="var(--bg)" stroke-width="1.25" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="brand-text">
+            <h1 class="brand-title">CurrencyLens</h1>
+            <span id="global-status" class="brand-status"></span>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button id="lang-btn" type="button" class="pill-btn" title="Switch language">RU</button>
+          <label class="switch" aria-label="Toggle CurrencyLens">
+            <input id="global-toggle" type="checkbox" />
+            <span class="switch-track"></span>
+          </label>
+        </div>
+      </header>
+
+      <!-- Per-site bar -->
+      <div class="site-bar" id="site-bar">
+        <span class="site-dot" id="site-dot"></span>
+        <span class="site-host" id="site-host">—</span>
+        <button id="site-toggle-btn" type="button" class="link-btn"></button>
+      </div>
+
+      <!-- Main content -->
+      <main class="main" id="main-content">
+        <!-- Display mode & live preview card -->
+        <section class="card">
+          <div class="section-head">
+            <h2 class="section-title" data-i18n="displayModeTitle"></h2>
+            <span class="section-hint" id="preview-hint"></span>
+          </div>
+
+          <div class="mode-segmented" role="radiogroup" aria-label="Display mode">
+            <button type="button" class="mode-card" data-mode="inline" role="radio" aria-checked="false">
+              <span class="btn-icon" data-icon="eye"></span>
+              <span class="mode-name" data-i18n="modeInline"></span>
+            </button>
+
+            <button type="button" class="mode-card" data-mode="hover" role="radio" aria-checked="false">
+              <span class="btn-icon" data-icon="mousePointer"></span>
+              <span class="mode-name" data-i18n="modeHover"></span>
+            </button>
+
+            <button type="button" class="mode-card" data-mode="click" role="radio" aria-checked="false">
+              <span class="btn-icon" data-icon="mousePointerClick"></span>
+              <span class="mode-name" data-i18n="modeClick"></span>
+            </button>
+          </div>
+
+          <!-- Inline sub-mode -->
+          <div class="segmented" id="inline-style-wrap" hidden>
+            <button type="button" class="seg-btn" data-inline-style="beside" data-i18n="inlineStyleBeside"></button>
+            <button type="button" class="seg-btn" data-inline-style="replace" data-i18n="inlineStyleReplace"></button>
+          </div>
+
+          <!-- Live preview inset -->
+          <div class="preview-box" id="preview-box">
+            <span class="preview-item-name">Wireless Earbuds</span>
+            <span class="preview-price-wrap">
+              <span class="preview-orig" id="preview-orig">$49.99</span>
+              <button type="button" class="preview-badge" id="preview-badge"></button>
+            </span>
+            <div class="preview-popover" id="preview-popover" hidden></div>
+          </div>
+        </section>
+
+        <!-- Currencies card -->
+        <section class="card">
+          <div class="sub-block">
+            <div class="section-head">
+              <h2 class="section-title" data-i18n="currenciesTitle"></h2>
+              <span class="section-hint" data-i18n="currenciesSub"></span>
+            </div>
+            <div class="chips" id="selected-chips"></div>
+          </div>
+
+          <div class="card-divider"></div>
+
+          <div class="sub-block">
+            <div class="section-head">
+              <h2 class="section-title" data-i18n="ignoredTitle"></h2>
+              <span class="section-hint" data-i18n="ignoredSub"></span>
+            </div>
+            <div class="chips" id="ignored-chips"></div>
+          </div>
+
+          <div class="picker-block">
+            <div class="segmented picker-tabs" role="tablist">
+              <button type="button" class="seg-btn picker-tab" data-picker-tab="target" role="tab" aria-selected="true" data-i18n="pickerTabTarget"></button>
+              <button type="button" class="seg-btn picker-tab" data-picker-tab="ignored" role="tab" aria-selected="false" data-i18n="pickerTabIgnored"></button>
+            </div>
+
+            <div class="search-wrap">
+              <span class="search-icon" data-icon="search"></span>
+              <input id="currency-search" type="search" class="search-input" autocomplete="off" />
+            </div>
+
+            <div class="currency-list" id="currency-list" role="listbox" aria-multiselectable="true"></div>
+          </div>
+        </section>
+
+        <!-- Extension UI surface card -->
+        <section class="card card-compact">
+          <div class="surface-row">
+            <h2 class="section-title" data-i18n="uiSurfaceTitle"></h2>
+            <div class="segmented surface-segmented" role="radiogroup">
+              <button type="button" class="seg-btn surface-btn" data-surface="popup" role="radio" aria-checked="true">
+                <span class="btn-icon" data-icon="appWindow"></span>
+                <span data-i18n="uiSurfacePopup"></span>
+              </button>
+              <button type="button" class="seg-btn surface-btn" data-surface="sidepanel" role="radio" aria-checked="false">
+                <span class="btn-icon" data-icon="panelRight"></span>
+                <span data-i18n="uiSurfaceSidepanel"></span>
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="rates-info">
+          <span class="rates-dot" id="rates-dot"></span>
+          <span class="rates-text" id="rates-text"></span>
+        </div>
+        <div class="footer-actions">
+          <button id="theme-btn" type="button" class="icon-pill-btn" title="Theme"></button>
+          <button id="refresh-btn" type="button" class="icon-btn" title="Refresh rates" aria-label="Refresh rates" data-icon="refreshCw"></button>
+        </div>
+      </footer>
+    </div>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

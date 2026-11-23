@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>CurrencyLens — Demo &amp; Test Page</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f8fafc;
+        --card: #ffffff;
+        --border: rgba(15, 23, 42, 0.1);
+        --text: #0f172a;
+        --muted: #64748b;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0b1120;
+          --card: #111827;
+          --border: rgba(248, 250, 252, 0.1);
+          --text: #f8fafc;
+          --muted: #94a3b8;
+        }
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 32px 20px 80px;
+        line-height: 1.55;
+      }
+      h1 { margin-top: 0; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+        margin: 20px 0;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 16px;
+      }
+      .price {
+        font-size: 20px;
+        font-weight: 700;
+        margin: 8px 0;
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .split-price {
+        font-size: 22px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: baseline;
+      }
+      .split-price .sup {
+        font-size: 13px;
+        vertical-align: super;
+      }
+      button.add-btn {
+        background: #4f46e5;
+        color: #fff;
+        border: none;
+        padding: 9px 16px;
+        border-radius: 9px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      a.product-link {
+        color: inherit;
+        text-decoration: none;
+        display: block;
+      }
+      a.product-link:hover h3 {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CurrencyLens — Тестовая страница</h1>
+    <p class="muted">
+      Откройте эту страницу с установленным расширением CurrencyLens и переключите режимы в popup:
+      <strong>Сразу (рядом / замена)</strong>, <strong>При наведении</strong> и <strong>По нажатию</strong>.
+    </p>
+
+    <h2>1. Разные валюты и форматы</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Mechanical Keyboard</h3>
+        <div class="price">$149.99</div>
+        <p class="muted">US format (prefix $)</p>
+      </div>
+      <div class="card">
+        <h3>Coffee Machine</h3>
+        <div class="price">€1.299,50</div>
+        <p class="muted">EU format (dots + comma)</p>
+      </div>
+      <div class="card">
+        <h3>Подписка на сервис</h3>
+        <div class="price">1 490 ₽</div>
+        <p class="muted">Russian ruble with space</p>
+      </div>
+      <div class="card">
+        <h3>London Hotel</h3>
+        <div class="price">£240.00</div>
+        <p class="muted">GBP prefix</p>
+      </div>
+      <div class="card">
+        <h3>Tokyo Ramen Set</h3>
+        <div class="price">¥3,200</div>
+        <p class="muted">JPY comma thousands</p>
+      </div>
+      <div class="card">
+        <h3>Dubai Transfer</h3>
+        <div class="price">350 AED</div>
+        <p class="muted">Suffix ISO code</p>
+      </div>
+      <div class="card">
+        <h3>Price Range</h3>
+        <div class="price">$19.99 – $49.99</div>
+        <p class="muted">Диапазон цен</p>
+      </div>
+      <div class="card">
+        <h3>Enterprise Plan</h3>
+        <div class="price">$12.5k</div>
+        <p class="muted">Компактный суффикс k</p>
+      </div>
+    </div>
+
+    <h2>2. Split-DOM цены (как на Amazon / маркетплейсах) и ссылки</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Split-DOM Card</h3>
+        <span class="split-price"><span>$</span><span>89</span><span class="sup">.95</span></span>
+        <p class="muted">Цена разбита на 3 отдельных &lt;span&gt;</p>
+      </div>
+      <div class="card">
+        <a class="product-link" href="#clicked-link">
+          <h3>Цена внутри ссылки &lt;a&gt;</h3>
+          <div class="price">€79,90</div>
+          <p class="muted">Клик по плашке открывает попап, клик по карточке — переходит по ссылке</p>
+        </a>
+      </div>
+    </div>
+
+    <h2>3. Динамически подгружаемые цены (MutationObserver)</h2>
+    <button class="add-btn" id="add-dynamic">+ Добавить карточку с ценой</button>
+    <div class="grid" id="dynamic-grid"></div>
+
+    <h2>4. Проверка отсутствия ложных срабатываний</h2>
+    <div class="card">
+      <p>
+        Версия приложения: v2.4.1 · Дата релиза: 2026-11-22 · Код: <code>const price = "$99.99";</code> ·
+        Обычное число: 4200 штук · Инпут: <input type="text" value="$50.00" />
+      </p>
+    </div>
+
+    <script>
+      const samples = ['$29.50', '€120,00', '2 990 руб.', '15 000 ₸', '₺850', 'CHF 64.00'];
+      let idx = 0;
+      document.getElementById('add-dynamic').addEventListener('click', () => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        const price = samples[idx % samples.length];
+        idx++;
+        card.innerHTML = `<h3>Dynamic Item #${idx}</h3><div class="price">${price}</div><p class="muted">Добавлено динамически</p>`;
+        document.getElementById('dynamic-grid').appendChild(card);
+      });
+    </script>
+  </body>
+</html>

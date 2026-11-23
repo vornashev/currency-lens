@@ -1,0 +1,31 @@
+{
+  "name": "currency-lens",
+  "version": "1.0.0",
+  "description": "Cross-browser (Chrome & Firefox MV3) on-page currency converter extension",
+  "type": "module",
+  "license": "MIT",
+  "author": "vornashev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vornashev/currency-lens.git"
+  },
+  "homepage": "https://github.com/vornashev/currency-lens#readme",
+  "bugs": {
+    "url": "https://github.com/vornashev/currency-lens/issues"
+  },
+  "keywords": [
+    "browser-extension",
+    "chrome-extension",
+    "firefox-extension",
+    "manifest-v3",
+    "currency-converter",
+    "prices"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.js"
+  }
+}

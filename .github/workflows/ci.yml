@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build Chrome and Firefox bundles
+        run: npm run build
+
+      - name: Package extension artifacts
+        run: |
+          (cd dist/chrome && zip -r ../../currency-lens-chrome.zip .)
+          (cd dist/firefox && zip -r ../../currency-lens-firefox.zip .)
+
+      - name: Upload Chrome bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: currency-lens-chrome
+          path: currency-lens-chrome.zip
+
+      - name: Upload Firefox bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: currency-lens-firefox
+          path: currency-lens-firefox.zip
